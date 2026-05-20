@@ -79,12 +79,16 @@
         }
 
         .object-card {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 15px;
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
         }
 
         .object-card:hover {
@@ -92,18 +96,9 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .object-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            background: #e9ecef;
-        }
-
         .object-name {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
             color: #333;
             text-transform: capitalize;
         }
@@ -140,26 +135,109 @@
 
     <script>
         const objects = [
-            { name: 'Fridge', image: 'https://picsum.photos/400/400?random=1' },
-            { name: 'Laptop', image: 'https://picsum.photos/400/400?random=2' },
-            { name: 'Chair', image: 'https://picsum.photos/400/400?random=3' },
-            { name: 'Desk', image: 'https://picsum.photos/400/400?random=4' },
-            { name: 'Lamp', image: 'https://picsum.photos/400/400?random=5' },
-            { name: 'Plant', image: 'https://picsum.photos/400/400?random=6' },
-            { name: 'Coffee Cup', image: 'https://picsum.photos/400/400?random=7' },
-            { name: 'Phone', image: 'https://picsum.photos/400/400?random=8' },
-            { name: 'Keyboard', image: 'https://picsum.photos/400/400?random=9' },
-            { name: 'Mouse', image: 'https://picsum.photos/400/400?random=10' },
-            { name: 'Monitor', image: 'https://picsum.photos/400/400?random=11' },
-            { name: 'Books', image: 'https://picsum.photos/400/400?random=12' },
-            { name: 'Headphones', image: 'https://picsum.photos/400/400?random=13' },
-            { name: 'Camera', image: 'https://picsum.photos/400/400?random=14' },
-            { name: 'Watch', image: 'https://picsum.photos/400/400?random=15' },
-            { name: 'Clock', image: 'https://picsum.photos/400/400?random=16' },
-            { name: 'Microphone', image: 'https://picsum.photos/400/400?random=17' },
-            { name: 'Backpack', image: 'https://picsum.photos/400/400?random=18' },
-            { name: 'Sofa', image: 'https://picsum.photos/400/400?random=19' },
-            { name: 'Bicycle', image: 'https://picsum.photos/400/400?random=20' }
+            'Fridge',
+            'Laptop',
+            'Chair',
+            'Desk',
+            'Lamp',
+            'Plant',
+            'Coffee Cup',
+            'Phone',
+            'Keyboard',
+            'Mouse',
+            'Monitor',
+            'Books',
+            'Headphones',
+            'Camera',
+            'Watch',
+            'Clock',
+            'Microphone',
+            'Backpack',
+            'Sofa',
+            'Bicycle',
+            'Toaster',
+            'Blender',
+            'Microwave',
+            'Dishwasher',
+            'Pillow',
+            'Blanket',
+            'Door',
+            'Window',
+            'Mirror',
+            'Shelf',
+            'Table',
+            'Bed',
+            'Rug',
+            'Curtains',
+            'Poster',
+            'Painting',
+            'Vase',
+            'Candle',
+            'Picture Frame',
+            'Fan',
+            'Air Conditioner',
+            'Heater',
+            'Thermostat',
+            'Light Switch',
+            'Outlet',
+            'Cable',
+            'Charger',
+            'Headset',
+            'Tablet',
+            'Printer',
+            'Scanner',
+            'Router',
+            'Modem',
+            'Speaker',
+            'Microphone Stand',
+            'Webcam',
+            'Monitor Stand',
+            'Desk Pad',
+            'Mouse Pad',
+            'Desk Lamp',
+            'Water Bottle',
+            'Travel Mug',
+            'Plate',
+            'Bowl',
+            'Spoon',
+            'Fork',
+            'Knife',
+            'Cutting Board',
+            'Pot',
+            'Pan',
+            'Oven',
+            'Stove',
+            'Sink',
+            'Faucet',
+            'Towel',
+            'Bath Mat',
+            'Shower Curtain',
+            'Toilet',
+            'Toilet Brush',
+            'Trash Can',
+            'Laundry Basket',
+            'Coat Hanger',
+            'Belt',
+            'Tie',
+            'Scarf',
+            'Hat',
+            'Shoes',
+            'Socks',
+            'Jeans',
+            'Shirt',
+            'Sweater',
+            'Jacket',
+            'Raincoat',
+            'Gloves',
+            'Sunglasses',
+            'Wallet',
+            'Keys',
+            'Pen',
+            'Pencil',
+            'Notebook',
+            'Eraser',
+            'Ruler',
+            'Scissors'
         ];
 
         function getRandomObject() {
@@ -178,13 +256,11 @@
             ];
 
             // Create and append cards
-            randomObjects.forEach((obj, index) => {
+            randomObjects.forEach((obj) => {
                 const card = document.createElement('div');
                 card.className = 'object-card';
-                const timestamp = new Date().getTime();
                 card.innerHTML = `
-                    <img src="https://picsum.photos/400/400?random=${Math.random() * 10000}" alt="${obj.name}" class="object-image">
-                    <div class="object-name">${obj.name}</div>
+                    <div class="object-name">${obj}</div>
                 `;
                 container.appendChild(card);
             });
