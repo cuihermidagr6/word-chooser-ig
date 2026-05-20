@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Object Maker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .objects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .object-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .object-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .object-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #e9ecef;
+        }
+
+        .object-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            text-transform: capitalize;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .objects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 Random Object Maker</h1>
+        <p class="subtitle">Click randomize to generate 3 random objects</p>
+        
+        <div class="button-container">
+            <button onclick="randomizeObjects()">Randomize</button>
+        </div>
+
+        <div class="objects-grid" id="objectsContainer">
+            <!-- Objects will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const objects = [
+            { name: 'Fridge', image: 'https://images.unsplash.com/photo-1584622281917-7670a50a7d51?w=400&h=400&fit=crop' },
+            { name: 'Laptop', image: 'https://images.unsplash.com/photo-1588872657840-790ff3bde172?w=400&h=400&fit=crop' },
+            { name: 'Chair', image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=400&h=400&fit=crop' },
+            { name: 'Desk', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop' },
+            { name: 'Lamp', image: 'https://images.unsplash.com/photo-1565636192335-14c6b02ce63b?w=400&h=400&fit=crop' },
+            { name: 'Plant', image: 'https://images.unsplash.com/photo-1545241047-d2bc998591d7?w=400&h=400&fit=crop' },
+            { name: 'Coffee Cup', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b3f4?w=400&h=400&fit=crop' },
+            { name: 'Phone', image: 'https://images.unsplash.com/photo-1511707267537-b85faf00021e?w=400&h=400&fit=crop' },
+            { name: 'Keyboard', image: 'https://images.unsplash.com/photo-1587829191301-4382fc82ea38?w=400&h=400&fit=crop' },
+            { name: 'Mouse', image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=400&fit=crop' },
+            { name: 'Monitor', image: 'https://images.unsplash.com/photo-1586271348074-3fed8d95fff8?w=400&h=400&fit=crop' },
+            { name: 'Books', image: 'https://images.unsplash.com/photo-1507842072343-583f20270319?w=400&h=400&fit=crop' },
+            { name: 'Headphones', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
+            { name: 'Camera', image: 'https://images.unsplash.com/photo-1516035069371-29a08e8cff5d?w=400&h=400&fit=crop' },
+            { name: 'Watch', image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop' },
+            { name: 'Clock', image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&h=400&fit=crop' },
+            { name: 'Mirror', image: 'https://images.unsplash.com/photo-1578926314433-b58baf08a20a?w=400&h=400&fit=crop' },
+            { name: 'Door', image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=400&fit=crop' },
+            { name: 'Window', image: 'https://images.unsplash.com/photo-1552994241-5d0d30e7fe14?w=400&h=400&fit=crop' },
+            { name: 'Sofa', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop' }
+        ];
+
+        function getRandomObject() {
+            return objects[Math.floor(Math.random() * objects.length)];
+        }
+
+        function randomizeObjects() {
+            const container = document.getElementById('objectsContainer');
+            container.innerHTML = '';
+
+            // Get 3 random objects
+            const randomObjects = [
+                getRandomObject(),
+                getRandomObject(),
+                getRandomObject()
+            ];
+
+            // Create and append cards
+            randomObjects.forEach(obj => {
+                const card = document.createElement('div');
+                card.className = 'object-card';
+                card.innerHTML = `
+                    <img src="${obj.image}" alt="${obj.name}" class="object-image">
+                    <div class="object-name">${obj.name}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Load initial random objects on page load
+        window.addEventListener('load', randomizeObjects);
+    </script>
+</body>
+</html>
